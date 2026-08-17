@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Reliable Webhook Delivery Service</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            /* User Specified Professional Material Blue Palette */
+            /* User Requested Professional Material Blue Palette */
             --bg: #050b18;
             --surface: #0c1833;
             --surface-hover: #122248;
             --border: rgba(144, 202, 249, 0.22);
             --border-active: #2196F3;
-            
+
             --text-primary: #FFFFFF;
             --text-secondary: #90CAF9;
             --text-muted: #E3F2FD;
-            
+
             --accent: #2196F3;
             --accent-hover: #1e88e5;
             --accent-light: rgba(33, 150, 243, 0.18);
-            --accent-tint: #E3F2FD;
-            --deep-blue: #0D47A1;
-            
+
             --success: #00E676;
             --success-light: rgba(0, 230, 118, 0.16);
             --warning: #FFC107;
             --warning-light: rgba(255, 193, 7, 0.16);
             --danger: #FF5252;
             --danger-light: rgba(255, 82, 82, 0.16);
-            
+
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 16px;
-            
+
             --shadow-subtle: 0 4px 24px rgba(0, 0, 0, 0.45);
             --transition: all 0.2s ease;
         }
@@ -148,8 +149,10 @@
             white-space: nowrap;
         }
 
-        /* Controls & Form Elements - High Visibility & Premium Material Blue Styling */
-        select, input, textarea {
+        /* Controls & Form Elements - High Visibility & Premium Styling */
+        select,
+        input,
+        textarea {
             background: #040a17;
             border: 1px solid rgba(144, 202, 249, 0.3);
             color: #ffffff;
@@ -162,12 +165,16 @@
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
         }
 
-        select::placeholder, input::placeholder, textarea::placeholder {
+        select::placeholder,
+        input::placeholder,
+        textarea::placeholder {
             color: #90CAF9;
             opacity: 0.75;
         }
 
-        select:focus, input:focus, textarea:focus {
+        select:focus,
+        input:focus,
+        textarea:focus {
             border-color: #2196F3;
             background: #07122b;
             box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.35), inset 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -243,7 +250,7 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #0c1833 0%, #060e21 100%);
+            background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             padding: 18px 20px;
@@ -355,25 +362,27 @@
         /* Equalized Card Heights & Scrollable Tables for Desktop */
         @media (min-width: 869px) {
             .card-equal-1 {
-                min-height: 410px;
-                height: 410px;
+                min-height: 445px;
+                height: 445px;
                 display: flex;
                 flex-direction: column;
                 box-sizing: border-box;
                 overflow: hidden;
             }
+
             .card-equal-2 {
-                min-height: 410px;
-                height: 410px;
+                min-height: 445px;
+                height: 445px;
                 display: flex;
                 flex-direction: column;
                 box-sizing: border-box;
                 overflow: hidden;
             }
+
             .card-equal-1 .table-wrapper,
             .card-equal-2 .table-wrapper {
                 flex: 1;
-                max-height: 320px;
+                max-height: 345px;
                 overflow-y: auto;
                 overflow-x: auto;
             }
@@ -384,13 +393,16 @@
             width: 6px;
             height: 6px;
         }
+
         .table-wrapper::-webkit-scrollbar-track {
             background: rgba(0, 0, 0, 0.15);
         }
+
         .table-wrapper::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.15);
             border-radius: 4px;
         }
+
         .table-wrapper::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.25);
         }
@@ -451,12 +463,39 @@
             letter-spacing: 0.4px;
         }
 
-        .badge-success { background: var(--success-light); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
-        .badge-pending { background: var(--warning-light); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
-        .badge-processing { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(79, 70, 229, 0.3); }
-        .badge-danger { background: var(--danger-light); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
-        .badge-active { background: var(--success-light); color: var(--success); }
-        .badge-disabled { background: rgba(100, 116, 139, 0.2); color: var(--text-muted); }
+        .badge-success {
+            background: var(--success-light);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-pending {
+            background: var(--warning-light);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .badge-processing {
+            background: var(--accent-light);
+            color: var(--accent);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+        }
+
+        .badge-danger {
+            background: var(--danger-light);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .badge-active {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .badge-disabled {
+            background: rgba(100, 116, 139, 0.2);
+            color: var(--text-muted);
+        }
 
         .mono {
             font-family: 'JetBrains Mono', monospace;
@@ -543,324 +582,337 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <!-- Header Bar -->
-    <header>
-        <div class="brand-area">
-            <div class="brand-icon">⚡</div>
-            <div>
-                <div class="brand-title">Reliable Webhook Service</div>
-                <div class="brand-subtitle">Java 25 · Spring Boot · PostgreSQL Row-Level Claiming</div>
-            </div>
-        </div>
-        <div class="header-controls">
-            <div class="tenant-box">
-                <span>Tenant:</span>
-                <select id="tenantSelect" onchange="onTenantChanged()">
-                    <option value="tenant-alpha" selected>tenant-alpha (Alpha Corp)</option>
-                    <option value="tenant-beta">tenant-beta (Beta Logistics)</option>
-                    <option value="tenant-custom">Custom Tenant...</option>
-                </select>
-            </div>
-            <a href="/swagger-ui.html" target="_blank" class="btn btn-ghost">📘 Swagger</a>
-            <a href="/actuator/health" target="_blank" class="btn btn-ghost">💚 Health</a>
-            <button onclick="refreshAll()" class="btn btn-primary">🔄 Refresh</button>
-        </div>
-    </header>
-
-    <!-- Metrics Summary -->
-    <div class="stat-grid">
-        <div class="stat-card">
-            <div>
-                <div class="stat-lbl">Endpoints</div>
-                <div class="stat-val" id="statEndpoints">-</div>
-            </div>
-            <span style="font-size: 24px;">📡</span>
-        </div>
-        <div class="stat-card">
-            <div>
-                <div class="stat-lbl">Successful</div>
-                <div class="stat-val" id="statSuccess" style="color: var(--success);">-</div>
-            </div>
-            <span style="font-size: 24px;">✅</span>
-        </div>
-        <div class="stat-card">
-            <div>
-                <div class="stat-lbl">Pending</div>
-                <div class="stat-val" id="statPending" style="color: var(--warning);">-</div>
-            </div>
-            <span style="font-size: 24px;">⏳</span>
-        </div>
-        <div class="stat-card">
-            <div>
-                <div class="stat-lbl">Dead-Lettered</div>
-                <div class="stat-val" id="statDead" style="color: var(--danger);">-</div>
-            </div>
-            <span style="font-size: 24px;">💀</span>
-        </div>
-    </div>
-
-    <!-- Main Grid -->
-    <div class="main-grid">
-        <!-- Left Column: Forms -->
-        <div>
-            <!-- Register Endpoint Card -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">📡 Register Endpoint</div>
+    <div class="container">
+        <!-- Header Bar -->
+        <header>
+            <div class="brand-area">
+                <div class="brand-icon">⚡</div>
+                <div>
+                    <div class="brand-title">Reliable Webhook Service</div>
+                    <div class="brand-subtitle">Java 25 · Spring Boot · PostgreSQL Row-Level Claiming</div>
                 </div>
-                <div class="form-group">
-                    <label>Target URL</label>
-                    <input type="text" id="epUrl" placeholder="http://localhost:8090/api/demo/sink">
-                    <script>
-                        document.addEventListener('DOMContentLoaded', () => {
-                            if (document.getElementById('epUrl')) {
-                                document.getElementById('epUrl').value = window.location.origin + '/api/demo/sink';
-                            }
-                        });
-                    </script>
-                    <div class="preset-bar">
-                        <button class="btn btn-sm btn-ghost" onclick="setDemoUrl('/api/demo/sink')">Healthy</button>
-                        <button class="btn btn-sm btn-ghost" onclick="setDemoUrl('/api/demo/sink/flaky')">Flaky (500)</button>
-                        <button class="btn btn-sm btn-ghost" onclick="setDemoUrl('/api/demo/sink/failing')">Fail (500)</button>
-                        <button class="btn btn-sm btn-ghost" onclick="setDemoUrl('/api/demo/sink/hanging')">Timeout</button>
+            </div>
+            <div class="header-controls">
+                <div class="tenant-box">
+                    <span>Tenant:</span>
+                    <select id="tenantSelect" onchange="onTenantChanged()">
+                        <option value="tenant-alpha" selected>tenant-alpha (Alpha Corp)</option>
+                        <option value="tenant-beta">tenant-beta (Beta Logistics)</option>
+                        <option value="tenant-custom">Custom Tenant...</option>
+                    </select>
+                </div>
+                <a href="/swagger-ui.html" target="_blank" class="btn btn-ghost">📘 Swagger</a>
+                <a href="/actuator/health" target="_blank" class="btn btn-ghost">💚 Health</a>
+                <button onclick="refreshAll()" class="btn btn-primary">🔄 Refresh</button>
+            </div>
+        </header>
+
+        <!-- Metrics Summary -->
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div>
+                    <div class="stat-lbl">Endpoints</div>
+                    <div class="stat-val" id="statEndpoints">-</div>
+                </div>
+                <span style="font-size: 24px;">📡</span>
+            </div>
+            <div class="stat-card">
+                <div>
+                    <div class="stat-lbl">Successful</div>
+                    <div class="stat-val" id="statSuccess" style="color: var(--success);">-</div>
+                </div>
+                <span style="font-size: 24px;">✅</span>
+            </div>
+            <div class="stat-card">
+                <div>
+                    <div class="stat-lbl">Pending</div>
+                    <div class="stat-val" id="statPending" style="color: var(--warning);">-</div>
+                </div>
+                <span style="font-size: 24px;">⏳</span>
+            </div>
+            <div class="stat-card">
+                <div>
+                    <div class="stat-lbl">Dead-Lettered</div>
+                    <div class="stat-val" id="statDead" style="color: var(--danger);">-</div>
+                </div>
+                <span style="font-size: 24px;">💀</span>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Left Column: Forms -->
+            <div>
+                <!-- Register Endpoint Card -->
+                <div class="card card-equal-1">
+                    <div class="card-header">
+                        <div class="card-title">📡 Register Endpoint</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Target URL</label>
+                        <input type="text" id="epUrl" placeholder="http://localhost:8090/api/demo/sink">
+                        <script>
+                            document.addEventListener('DOMContentLoaded', () => {
+                                if (document.getElementById('epUrl')) {
+                                    document.getElementById('epUrl').value = window.location.origin + '/api/demo/sink';
+                                }
+                            });
+                        </script>
+                        <div class="preset-bar">
+                            <button class="btn btn-sm btn-ghost" onclick="setDemoUrl('/api/demo/sink')">Healthy</button>
+                            <button class="btn btn-sm btn-ghost" onclick="setDemoUrl('/api/demo/sink/flaky')">Flaky
+                                (500)</button>
+                            <button class="btn btn-sm btn-ghost" onclick="setDemoUrl('/api/demo/sink/failing')">Fail
+                                (500)</button>
+                            <button class="btn btn-sm btn-ghost"
+                                onclick="setDemoUrl('/api/demo/sink/hanging')">Timeout</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Subscribed Event Types (e.g. * or order.created)</label>
+                        <input type="text" id="epEvents" placeholder="order.created, invoice.paid" value="*">
+                    </div>
+                    <div class="form-group">
+                        <label>Secret (leave empty to auto-generate)</label>
+                        <input type="text" id="epSecret" placeholder="Auto-generated 32-byte hex">
+                    </div>
+                    <button onclick="createEndpoint()" class="btn btn-primary"
+                        style="width: 100%; margin-top: 4px;">Register Endpoint</button>
+                </div>
+
+                <!-- Ingest Event Card -->
+                <div class="card card-equal-2">
+                    <div class="card-header">
+                        <div class="card-title">🚀 Ingest Producer Event</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Producer Event ID (Idempotency Key)</label>
+                        <input type="text" id="evtId" placeholder="evt_1001">
+                    </div>
+                    <div class="form-group">
+                        <label>Event Type</label>
+                        <input type="text" id="evtType" value="order.created">
+                    </div>
+                    <div class="form-group">
+                        <label>JSON Payload</label>
+                        <textarea
+                            id="evtPayload">{"orderId": "ord_9981", "amount": 250.00, "currency": "USD"}</textarea>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button onclick="generateRandomEventId()" class="btn" style="flex: 1;">🎲 Random ID</button>
+                        <button onclick="ingestEvent()" class="btn btn-primary" style="flex: 2;">Ingest &
+                            Fan-out</button>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Subscribed Event Types (e.g. * or order.created)</label>
-                    <input type="text" id="epEvents" placeholder="order.created, invoice.paid" value="*">
-                </div>
-                <div class="form-group">
-                    <label>Secret (leave empty to auto-generate)</label>
-                    <input type="text" id="epSecret" placeholder="Auto-generated 32-byte hex">
-                </div>
-                <button onclick="createEndpoint()" class="btn btn-primary" style="width: 100%; margin-top: 6px;">Register Endpoint</button>
             </div>
 
-            <!-- Ingest Event Card -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">🚀 Ingest Producer Event</div>
+            <!-- Right Column: Data Tables -->
+            <div>
+                <!-- Endpoints Table -->
+                <div class="card card-equal-1">
+                    <div class="card-header">
+                        <div class="card-title">🌐 Registered Endpoints (<span id="epCount">0</span>)</div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>URL</th>
+                                    <th>Events</th>
+                                    <th>Status</th>
+                                    <th>Secret</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="endpointsTableBody">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; color: var(--text-secondary);">Loading
+                                        endpoints...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Producer Event ID (Idempotency Key)</label>
-                    <input type="text" id="evtId" placeholder="evt_1001">
-                </div>
-                <div class="form-group">
-                    <label>Event Type</label>
-                    <input type="text" id="evtType" value="order.created">
-                </div>
-                <div class="form-group">
-                    <label>JSON Payload</label>
-                    <textarea id="evtPayload">{"orderId": "ord_9981", "amount": 250.00, "currency": "USD"}</textarea>
-                </div>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <button onclick="generateRandomEventId()" class="btn" style="flex: 1;">🎲 Random ID</button>
-                    <button onclick="ingestEvent()" class="btn btn-primary" style="flex: 2;">Ingest & Fan-out</button>
-                </div>
-            </div>
-        </div>
 
-        <!-- Right Column: Data Tables -->
-        <div>
-            <!-- Endpoints Table -->
-            <div class="card card-equal-1">
-                <div class="card-header">
-                    <div class="card-title">🌐 Registered Endpoints (<span id="epCount">0</span>)</div>
-                </div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>URL</th>
-                                <th>Events</th>
-                                <th>Status</th>
-                                <th>Secret</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="endpointsTableBody">
-                            <tr><td colspan="5" style="text-align: center; color: var(--text-secondary);">Loading endpoints...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Deliveries Table -->
-            <div class="card card-equal-2">
-                <div class="card-header">
-                    <div class="card-title">📦 Live Delivery Queue & Audit Log</div>
-                    <button class="btn btn-sm btn-ghost" onclick="fetchDeliveries()">🔄 Refresh</button>
-                </div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Delivery ID</th>
-                                <th>Event ID</th>
-                                <th>Attempts</th>
-                                <th>Status</th>
-                                <th>Last Response</th>
-                                <th>Next Attempt</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="deliveriesTableBody">
-                            <tr><td colspan="7" style="text-align: center; color: var(--text-secondary);">Ingest an event to see deliveries.</td></tr>
-                        </tbody>
-                    </table>
+                <!-- Deliveries Table -->
+                <div class="card card-equal-2">
+                    <div class="card-header">
+                        <div class="card-title">📦 Live Delivery Queue & Audit Log</div>
+                        <button class="btn btn-sm btn-ghost" onclick="fetchDeliveries()">🔄 Refresh</button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Delivery ID</th>
+                                    <th>Event ID</th>
+                                    <th>Attempts</th>
+                                    <th>Status</th>
+                                    <th>Last Response</th>
+                                    <th>Next Attempt</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deliveriesTableBody">
+                                <tr>
+                                    <td colspan="7" style="text-align: center; color: var(--text-secondary);">Ingest an
+                                        event to see deliveries.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="toast" class="toast"></div>
+    <div id="toast" class="toast"></div>
 
-<script>
-    let currentTenant = 'tenant-alpha';
-    let currentEndpointId = null;
+    <script>
+        let currentTenant = 'tenant-alpha';
+        let currentEndpointId = null;
 
-    function showToast(msg) {
-        const t = document.getElementById('toast');
-        t.innerText = msg;
-        t.style.display = 'block';
-        setTimeout(() => { t.style.display = 'none'; }, 3500);
-    }
-
-    function setDemoUrl(path) {
-        document.getElementById('epUrl').value = window.location.origin + path;
-    }
-
-    function generateRandomEventId() {
-        document.getElementById('evtId').value = 'evt_' + Math.random().toString(36).substring(2, 9);
-    }
-
-    function getCustomTenants() {
-        try {
-            return JSON.parse(localStorage.getItem('customTenants') || '[]');
-        } catch(e) {
-            return [];
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.style.display = 'block';
+            setTimeout(() => { t.style.display = 'none'; }, 3500);
         }
-    }
 
-    function saveCustomTenant(tenant) {
-        const list = getCustomTenants();
-        if (!list.includes(tenant)) {
-            list.push(tenant);
-            localStorage.setItem('customTenants', JSON.stringify(list));
+        function setDemoUrl(path) {
+            document.getElementById('epUrl').value = window.location.origin + path;
         }
-    }
 
-    function restoreTenants() {
-        const sel = document.getElementById('tenantSelect');
-        const customList = getCustomTenants();
-        customList.forEach(t => {
-            let opt = Array.from(sel.options).find(o => o.value === t);
-            if (!opt) {
-                opt = document.createElement('option');
-                opt.value = t;
-                opt.text = t + ' (Custom)';
-                sel.add(opt, sel.options.length - 1);
-            }
-        });
+        function generateRandomEventId() {
+            document.getElementById('evtId').value = 'evt_' + Math.random().toString(36).substring(2, 9);
+        }
 
-        const active = localStorage.getItem('activeTenant');
-        if (active) {
-            currentTenant = active;
-            let opt = Array.from(sel.options).find(o => o.value === active);
-            if (opt) {
-                sel.value = active;
+        function getCustomTenants() {
+            try {
+                return JSON.parse(localStorage.getItem('customTenants') || '[]');
+            } catch (e) {
+                return [];
             }
         }
-    }
 
-    function onTenantChanged() {
-        const sel = document.getElementById('tenantSelect');
-        const val = sel.value;
-        if (val === 'tenant-custom') {
-            const custom = prompt('Enter custom Tenant ID:', 'tenant-gamma');
-            if (custom && custom.trim().length > 0) {
-                currentTenant = custom.trim();
-                saveCustomTenant(currentTenant);
-                
-                // Add custom option to dropdown if it doesn't exist
-                let opt = Array.from(sel.options).find(o => o.value === currentTenant);
+        function saveCustomTenant(tenant) {
+            const list = getCustomTenants();
+            if (!list.includes(tenant)) {
+                list.push(tenant);
+                localStorage.setItem('customTenants', JSON.stringify(list));
+            }
+        }
+
+        function restoreTenants() {
+            const sel = document.getElementById('tenantSelect');
+            const customList = getCustomTenants();
+            customList.forEach(t => {
+                let opt = Array.from(sel.options).find(o => o.value === t);
                 if (!opt) {
                     opt = document.createElement('option');
-                    opt.value = currentTenant;
-                    opt.text = currentTenant + ' (Custom)';
+                    opt.value = t;
+                    opt.text = t + ' (Custom)';
                     sel.add(opt, sel.options.length - 1);
                 }
-                sel.value = currentTenant;
+            });
+
+            const active = localStorage.getItem('activeTenant');
+            if (active) {
+                currentTenant = active;
+                let opt = Array.from(sel.options).find(o => o.value === active);
+                if (opt) {
+                    sel.value = active;
+                }
+            }
+        }
+
+        function onTenantChanged() {
+            const sel = document.getElementById('tenantSelect');
+            const val = sel.value;
+            if (val === 'tenant-custom') {
+                const custom = prompt('Enter custom Tenant ID:', 'tenant-gamma');
+                if (custom && custom.trim().length > 0) {
+                    currentTenant = custom.trim();
+                    saveCustomTenant(currentTenant);
+
+                    // Add custom option to dropdown if it doesn't exist
+                    let opt = Array.from(sel.options).find(o => o.value === currentTenant);
+                    if (!opt) {
+                        opt = document.createElement('option');
+                        opt.value = currentTenant;
+                        opt.text = currentTenant + ' (Custom)';
+                        sel.add(opt, sel.options.length - 1);
+                    }
+                    sel.value = currentTenant;
+                } else {
+                    sel.value = currentTenant;
+                    return;
+                }
             } else {
-                sel.value = currentTenant;
-                return;
+                currentTenant = val;
             }
-        } else {
-            currentTenant = val;
+            localStorage.setItem('activeTenant', currentTenant);
+            currentEndpointId = null; // Reset endpoint selection for the new tenant
+            refreshAll();
         }
-        localStorage.setItem('activeTenant', currentTenant);
-        currentEndpointId = null; // Reset endpoint selection for the new tenant
-        refreshAll();
-    }
 
-    async function apiCall(path, method = 'GET', body = null) {
-        const headers = {
-            'X-Tenant-Id': currentTenant,
-            'Content-Type': 'application/json'
-        };
-        const opts = { method, headers };
-        if (body) opts.body = JSON.stringify(body);
-        const res = await fetch(path, opts);
-        if (!res.ok) {
-            const err = await res.json().catch(() => ({ message: res.statusText }));
-            throw new Error(err.message || 'API error: ' + res.status);
+        async function apiCall(path, method = 'GET', body = null) {
+            const headers = {
+                'X-Tenant-Id': currentTenant,
+                'Content-Type': 'application/json'
+            };
+            const opts = { method, headers };
+            if (body) opts.body = JSON.stringify(body);
+            const res = await fetch(path, opts);
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({ message: res.statusText }));
+                throw new Error(err.message || 'API error: ' + res.status);
+            }
+            if (res.status === 204) return null;
+            return res.json();
         }
-        if (res.status === 204) return null;
-        return res.json();
-    }
 
-    async function refreshAll() {
-        await fetchEndpoints();
-        await fetchStats();
-        await fetchDeliveries();
-    }
-
-    async function fetchStats() {
-        try {
-            const health = await fetch('/actuator/health').then(r => r.json());
-            let w = null;
-            if (health.components && health.components.worker && health.components.worker.details) {
-                w = health.components.worker.details;
-            } else if (health.details && health.details.workerHealth && health.details.workerHealth.details) {
-                w = health.details.workerHealth.details;
-            }
-            if (w) {
-                document.getElementById('statSuccess').innerText = w.successfulDeliveries !== undefined ? w.successfulDeliveries : 0;
-                document.getElementById('statPending').innerText = (w.pendingDeliveries || 0) + (w.processingDeliveries || 0);
-                document.getElementById('statDead').innerText = w.deadLetteredDeliveries !== undefined ? w.deadLetteredDeliveries : 0;
-            }
-        } catch (e) {
-            console.error('Fetch stats error:', e);
+        async function refreshAll() {
+            await fetchEndpoints();
+            await fetchStats();
+            await fetchDeliveries();
         }
-    }
 
-    async function fetchEndpoints() {
-        try {
-            const endpoints = await apiCall('/api/v1/endpoints');
-            document.getElementById('epCount').innerText = endpoints.length;
-            document.getElementById('statEndpoints').innerText = endpoints.length;
-
-            const tbody = document.getElementById('endpointsTableBody');
-            if (endpoints.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: var(--text-secondary); padding: 20px;">No endpoints registered for ' + currentTenant + '</td></tr>';
-                return;
+        async function fetchStats() {
+            try {
+                const health = await fetch('/actuator/health').then(r => r.json());
+                let w = null;
+                if (health.components && health.components.worker && health.components.worker.details) {
+                    w = health.components.worker.details;
+                } else if (health.details && health.details.workerHealth && health.details.workerHealth.details) {
+                    w = health.details.workerHealth.details;
+                }
+                if (w) {
+                    document.getElementById('statSuccess').innerText = w.successfulDeliveries !== undefined ? w.successfulDeliveries : 0;
+                    document.getElementById('statPending').innerText = (w.pendingDeliveries || 0) + (w.processingDeliveries || 0);
+                    document.getElementById('statDead').innerText = w.deadLetteredDeliveries !== undefined ? w.deadLetteredDeliveries : 0;
+                }
+            } catch (e) {
+                console.error('Fetch stats error:', e);
             }
+        }
 
-            tbody.innerHTML = endpoints.map(ep => `
+        async function fetchEndpoints() {
+            try {
+                const endpoints = await apiCall('/api/v1/endpoints');
+                document.getElementById('epCount').innerText = endpoints.length;
+                document.getElementById('statEndpoints').innerText = endpoints.length;
+
+                const tbody = document.getElementById('endpointsTableBody');
+                if (endpoints.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: var(--text-secondary); padding: 20px;">No endpoints registered for ' + currentTenant + '</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = endpoints.map(ep => `
                 <tr>
                     <td class="mono" style="max-width: 160px; overflow: hidden; text-overflow: ellipsis;">${ep.url}</td>
                     <td><span class="badge badge-processing">${ep.subscribedEventTypes.join(', ')}</span></td>
@@ -876,99 +928,99 @@
                 </tr>
             `).join('');
 
-            if (endpoints.length > 0 && !currentEndpointId) {
-                currentEndpointId = endpoints[0].id;
+                if (endpoints.length > 0 && !currentEndpointId) {
+                    currentEndpointId = endpoints[0].id;
+                }
+            } catch (e) {
+                showToast('Error loading endpoints: ' + e.message);
             }
-        } catch (e) {
-            showToast('Error loading endpoints: ' + e.message);
         }
-    }
 
-    async function createEndpoint() {
-        const url = document.getElementById('epUrl').value;
-        const events = document.getElementById('epEvents').value.split(',').map(s => s.trim()).filter(Boolean);
-        const secret = document.getElementById('epSecret').value;
+        async function createEndpoint() {
+            const url = document.getElementById('epUrl').value;
+            const events = document.getElementById('epEvents').value.split(',').map(s => s.trim()).filter(Boolean);
+            const secret = document.getElementById('epSecret').value;
 
-        try {
-            await apiCall('/api/v1/endpoints', 'POST', { url, secret: secret || null, eventTypes: events });
-            showToast('Endpoint registered successfully!');
-            fetchEndpoints();
-        } catch (e) {
-            showToast('Registration failed: ' + e.message);
-        }
-    }
-
-    async function testEndpoint(id) {
-        try {
-            const res = await apiCall(`/api/v1/endpoints/${id}/test`, 'POST');
-            if (res.reachable) {
-                showToast(`✅ Ping Success! HTTP ${res.statusCode} in ${res.latencyMs}ms`);
-            } else {
-                showToast(`❌ Ping Failed: ${res.message}`);
+            try {
+                await apiCall('/api/v1/endpoints', 'POST', { url, secret: secret || null, eventTypes: events });
+                showToast('Endpoint registered successfully!');
+                fetchEndpoints();
+            } catch (e) {
+                showToast('Registration failed: ' + e.message);
             }
-        } catch (e) {
-            showToast('Test failed: ' + e.message);
-        }
-    }
-
-    async function disableEndpoint(id) {
-        if (!confirm('Disable this endpoint?')) return;
-        try {
-            await apiCall(`/api/v1/endpoints/${id}`, 'DELETE');
-            showToast('Endpoint disabled.');
-            fetchEndpoints();
-        } catch (e) {
-            showToast('Disable failed: ' + e.message);
-        }
-    }
-
-    function selectEndpoint(id) {
-        currentEndpointId = id;
-        fetchDeliveries();
-    }
-
-    async function ingestEvent() {
-        const eventId = document.getElementById('evtId').value;
-        const type = document.getElementById('evtType').value;
-        const rawPayload = document.getElementById('evtPayload').value;
-
-        let payload;
-        try {
-            payload = JSON.parse(rawPayload);
-        } catch (e) {
-            showToast('Invalid JSON payload');
-            return;
         }
 
-        try {
-            const res = await apiCall('/api/v1/events', 'POST', { eventId, type, payload });
-            showToast(`Event ${res.eventId} ${res.status}!`);
-            setTimeout(() => { refreshAll(); }, 200);
-            setTimeout(() => { refreshAll(); }, 1500);
-        } catch (e) {
-            showToast('Ingestion failed: ' + e.message);
+        async function testEndpoint(id) {
+            try {
+                const res = await apiCall(`/api/v1/endpoints/${id}/test`, 'POST');
+                if (res.reachable) {
+                    showToast(`✅ Ping Success! HTTP ${res.statusCode} in ${res.latencyMs}ms`);
+                } else {
+                    showToast(`❌ Ping Failed: ${res.message}`);
+                }
+            } catch (e) {
+                showToast('Test failed: ' + e.message);
+            }
         }
-    }
 
-    async function fetchDeliveries() {
-        if (!currentEndpointId) return;
-        try {
-            const data = await apiCall(`/api/v1/endpoints/${currentEndpointId}/deliveries?page=0&size=20`);
-            const tbody = document.getElementById('deliveriesTableBody');
-            const items = data.content || [];
+        async function disableEndpoint(id) {
+            if (!confirm('Disable this endpoint?')) return;
+            try {
+                await apiCall(`/api/v1/endpoints/${id}`, 'DELETE');
+                showToast('Endpoint disabled.');
+                fetchEndpoints();
+            } catch (e) {
+                showToast('Disable failed: ' + e.message);
+            }
+        }
 
-            if (items.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-secondary); padding: 20px;">No deliveries recorded for selected endpoint.</td></tr>';
+        function selectEndpoint(id) {
+            currentEndpointId = id;
+            fetchDeliveries();
+        }
+
+        async function ingestEvent() {
+            const eventId = document.getElementById('evtId').value;
+            const type = document.getElementById('evtType').value;
+            const rawPayload = document.getElementById('evtPayload').value;
+
+            let payload;
+            try {
+                payload = JSON.parse(rawPayload);
+            } catch (e) {
+                showToast('Invalid JSON payload');
                 return;
             }
 
-            tbody.innerHTML = items.map(d => {
-                let badgeClass = 'badge-pending';
-                if (d.status === 'SUCCESS') badgeClass = 'badge-success';
-                else if (d.status === 'PROCESSING') badgeClass = 'badge-processing';
-                else if (d.status === 'DEAD_LETTERED') badgeClass = 'badge-danger';
+            try {
+                const res = await apiCall('/api/v1/events', 'POST', { eventId, type, payload });
+                showToast(`Event ${res.eventId} ${res.status}!`);
+                setTimeout(() => { refreshAll(); }, 200);
+                setTimeout(() => { refreshAll(); }, 1500);
+            } catch (e) {
+                showToast('Ingestion failed: ' + e.message);
+            }
+        }
 
-                return `
+        async function fetchDeliveries() {
+            if (!currentEndpointId) return;
+            try {
+                const data = await apiCall(`/api/v1/endpoints/${currentEndpointId}/deliveries?page=0&size=20`);
+                const tbody = document.getElementById('deliveriesTableBody');
+                const items = data.content || [];
+
+                if (items.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-secondary); padding: 20px;">No deliveries recorded for selected endpoint.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = items.map(d => {
+                    let badgeClass = 'badge-pending';
+                    if (d.status === 'SUCCESS') badgeClass = 'badge-success';
+                    else if (d.status === 'PROCESSING') badgeClass = 'badge-processing';
+                    else if (d.status === 'DEAD_LETTERED') badgeClass = 'badge-danger';
+
+                    return `
                     <tr>
                         <td class="mono">${d.id.substring(0, 8)}...</td>
                         <td class="mono">${d.eventId.substring(0, 8)}...</td>
@@ -981,28 +1033,29 @@
                         </td>
                     </tr>
                 `;
-            }).join('');
-        } catch (e) {
-            console.error('Fetch deliveries error:', e);
+                }).join('');
+            } catch (e) {
+                console.error('Fetch deliveries error:', e);
+            }
         }
-    }
 
-    async function redrive(id) {
-        try {
-            await apiCall(`/api/v1/deliveries/${id}/redrive`, 'POST');
-            showToast('Delivery re-queued successfully!');
-            setTimeout(() => { refreshAll(); }, 500);
-        } catch (e) {
-            showToast('Redrive failed: ' + e.message);
+        async function redrive(id) {
+            try {
+                await apiCall(`/api/v1/deliveries/${id}/redrive`, 'POST');
+                showToast('Delivery re-queued successfully!');
+                setTimeout(() => { refreshAll(); }, 500);
+            } catch (e) {
+                showToast('Redrive failed: ' + e.message);
+            }
         }
-    }
 
-    // Init on load
-    document.addEventListener('DOMContentLoaded', () => {
-        restoreTenants();
-        generateRandomEventId();
-        refreshAll();
-    });
-</script>
+        // Init on load
+        document.addEventListener('DOMContentLoaded', () => {
+            restoreTenants();
+            generateRandomEventId();
+            refreshAll();
+        });
+    </script>
 </body>
+
 </html>
