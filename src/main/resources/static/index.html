@@ -789,14 +789,19 @@
     async function fetchStats() {
         try {
             const health = await fetch('/actuator/health').then(r => r.json());
-            if (health.details && health.details.workerHealth) {
-                const w = health.details.workerHealth.details;
-                document.getElementById('statSuccess').innerText = w.successfulDeliveries || 0;
+            let w = null;
+            if (health.components && health.components.worker && health.components.worker.details) {
+                w = health.components.worker.details;
+            } else if (health.details && health.details.workerHealth && health.details.workerHealth.details) {
+                w = health.details.workerHealth.details;
+            }
+            if (w) {
+                document.getElementById('statSuccess').innerText = w.successfulDeliveries !== undefined ? w.successfulDeliveries : 0;
                 document.getElementById('statPending').innerText = (w.pendingDeliveries || 0) + (w.processingDeliveries || 0);
-                document.getElementById('statDead').innerText = w.deadLetteredDeliveries || 0;
+                document.getElementById('statDead').innerText = w.deadLetteredDeliveries !== undefined ? w.deadLetteredDeliveries : 0;
             }
         } catch (e) {
-            console.error(e);
+            console.error('Fetch stats error:', e);
         }
     }
 
