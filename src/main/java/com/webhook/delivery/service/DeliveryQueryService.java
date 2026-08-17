@@ -128,4 +128,18 @@ public class DeliveryQueryService {
                 saved.getNextAttemptAt()
         );
     }
+
+    @Transactional(readOnly = true)
+    public Map<String, Long> getTenantDeliveryStats(String tenantId) {
+        long success = deliveryRepository.countByTenantIdAndStatus(tenantId, DeliveryStatus.SUCCESS);
+        long pending = deliveryRepository.countByTenantIdAndStatus(tenantId, DeliveryStatus.PENDING);
+        long processing = deliveryRepository.countByTenantIdAndStatus(tenantId, DeliveryStatus.PROCESSING);
+        long dead = deliveryRepository.countByTenantIdAndStatus(tenantId, DeliveryStatus.DEAD_LETTERED);
+
+        Map<String, Long> stats = new HashMap<>();
+        stats.put("successfulDeliveries", success);
+        stats.put("pendingDeliveries", pending + processing);
+        stats.put("deadLetteredDeliveries", dead);
+        return stats;
+    }
 }

@@ -86,4 +86,6 @@ public interface DeliveryRepository extends JpaRepository<Delivery, UUID> {
     );
 
     long countByStatus(DeliveryStatus status);
+
+    long countByTenantIdAndStatus(String tenantId, DeliveryStatus status);
 }

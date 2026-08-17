@@ -31,4 +31,14 @@ public class DeliveryController {
         RedriveResponse response = deliveryQueryService.redriveDelivery(tenantId, id);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/stats")
+    @Operation(summary = "Get tenant-isolated delivery metrics", description = "Returns successful, pending, and dead-lettered delivery counts for the authenticated tenant.")
+    public ResponseEntity<java.util.Map<String, Long>> getTenantDeliveryStats(
+            @RequestHeader(value = "X-Tenant-Id", required = false) String tenantHeader
+    ) {
+        String tenantId = TenantContext.getTenantId();
+        java.util.Map<String, Long> stats = deliveryQueryService.getTenantDeliveryStats(tenantId);
+        return ResponseEntity.ok(stats);
+    }
 }
