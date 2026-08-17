@@ -91,6 +91,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    public ResponseEntity<ApiErrorResponse> handleDataIntegrityViolation(org.springframework.dao.DataIntegrityViolationException ex, HttpServletRequest request) {
+        log.warn("Data integrity violation for {}: {}", request.getRequestURI(), ex.getMessage());
+        ApiErrorResponse err = new ApiErrorResponse(
+                HttpStatus.CONFLICT.value(),
+                "Conflict",
+                "A duplicate resource with the same identifier already exists.",
+                request.getRequestURI(),
+                getTraceId()
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorResponse> handleGeneralException(Exception ex, HttpServletRequest request) {
         log.error("Unhandled exception processing request {}: {}", request.getRequestURI(), ex.getMessage(), ex);

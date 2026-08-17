@@ -57,14 +57,24 @@ public interface DeliveryRepository extends JpaRepository<Delivery, UUID> {
 
     List<Delivery> findAllByTenantIdAndEventIdOrderByCreatedAtDesc(String tenantId, UUID eventId);
 
-    @Query("""
+    Page<Delivery> findAllByTenantIdAndEndpointIdOrderByCreatedAtDesc(String tenantId, UUID endpointId, Pageable pageable);
+
+    @Query(value = """
         SELECT d FROM Delivery d
         WHERE d.tenantId = :tenantId
           AND d.endpointId = :endpointId
-          AND (:status IS NULL OR d.status = :status)
-          AND (:fromTime IS NULL OR d.createdAt >= :fromTime)
-          AND (:toTime IS NULL OR d.createdAt <= :toTime)
+          AND (:#{#status} IS NULL OR d.status = :status)
+          AND (:#{#fromTime} IS NULL OR d.createdAt >= :fromTime)
+          AND (:#{#toTime} IS NULL OR d.createdAt <= :toTime)
         ORDER BY d.createdAt DESC
+        """,
+        countQuery = """
+        SELECT count(d) FROM Delivery d
+        WHERE d.tenantId = :tenantId
+          AND d.endpointId = :endpointId
+          AND (:#{#status} IS NULL OR d.status = :status)
+          AND (:#{#fromTime} IS NULL OR d.createdAt >= :fromTime)
+          AND (:#{#toTime} IS NULL OR d.createdAt <= :toTime)
         """)
     Page<Delivery> findFilteredEndpointDeliveries(
             @Param("tenantId") String tenantId,

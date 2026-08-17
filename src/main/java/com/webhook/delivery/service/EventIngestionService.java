@@ -64,7 +64,16 @@ public class EventIngestionService {
 
         // Persist event
         WebhookEvent event = new WebhookEvent(tenantId, request.getEventId(), request.getType(), payloadJson);
-        WebhookEvent savedEvent = eventRepository.save(event);
+        WebhookEvent savedEvent;
+        try {
+            savedEvent = eventRepository.save(event);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            log.info("Concurrent duplicate event ingestion caught for eventId '{}' in tenant '{}'. Returning existing event.",
+                    request.getEventId(), tenantId);
+            WebhookEvent existing = eventRepository.findByTenantIdAndEventIdExternal(tenantId, request.getEventId())
+                    .orElseThrow(() -> e);
+            return EventResponse.from(existing, "ALREADY_INGESTED");
+        }
 
         // Fan-out: query matching active subscriptions
         List<WebhookEndpoint> activeEndpoints = endpointRepository.findAllByTenantIdAndStatus(tenantId, EndpointStatus.ACTIVE);

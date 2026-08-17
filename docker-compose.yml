@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:16-alpine
@@ -9,8 +7,9 @@ services:
       POSTGRES_DB: ${DB_NAME:-webhook_db}
       POSTGRES_USER: ${DB_USER:-webhook_user}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-webhook_pass}
+      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
-      - "${DB_PORT:-5432}:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:

@@ -1,13 +1,13 @@
 server:
-  port: 8080
+  port: 8090
 
 spring:
   application:
     name: webhook-delivery-service
   datasource:
-    url: ${DB_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:webhook_db}}
-    username: ${DB_USER:webhook_user}
-    password: ${DB_PASSWORD:webhook_pass}
+    url: jdbc:postgresql://127.0.0.1:5433/webhook_db
+    username: webhook_user
+    password: webhook_pass
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 20

@@ -107,101 +107,110 @@ public class DeliveryExecutorService {
 
         // Set correlation context
         String traceId = MDC.get("traceId");
+        boolean createdTraceId = false;
         if (traceId == null) {
             traceId = UUID.randomUUID().toString();
             MDC.put("traceId", traceId);
+            createdTraceId = true;
         }
         MDC.put("tenantId", delivery.getTenantId());
 
-        long timestampSeconds = Instant.now().getEpochSecond();
-        String payload = event.getPayload();
-        String signature = signatureService.computeSignature(payload, endpoint.getSecret(), timestampSeconds);
-
-        int currentAttemptNumber = delivery.getAttemptCount() + 1;
-        long startTime = System.currentTimeMillis();
-        Integer responseCode = null;
-        String responseSnippet = null;
-        String errorMessage = null;
-        boolean success = false;
-
         try {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(endpoint.getUrl()))
-                    .header("Content-Type", "application/json")
-                    .header("User-Agent", "Webhook-Delivery-Service/1.0")
-                    .header("X-Webhook-Signature", signature)
-                    .header("X-Webhook-Timestamp", String.valueOf(timestampSeconds))
-                    .header("X-Correlation-Id", traceId)
-                    .header("X-Delivery-Id", delivery.getId().toString())
-                    .header("X-Attempt-Number", String.valueOf(currentAttemptNumber))
-                    .header("X-Tenant-Id", delivery.getTenantId())
-                    .timeout(Duration.ofSeconds(6))
-                    .POST(HttpRequest.BodyPublishers.ofString(payload))
-                    .build();
+            long timestampSeconds = Instant.now().getEpochSecond();
+            String payload = event.getPayload();
+            String signature = signatureService.computeSignature(payload, endpoint.getSecret(), timestampSeconds);
 
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-            long latency = System.currentTimeMillis() - startTime;
-            responseCode = response.statusCode();
-            responseSnippet = sanitizeSnippet(response.body());
+            int currentAttemptNumber = delivery.getAttemptCount() + 1;
+            long startTime = System.currentTimeMillis();
+            Integer responseCode = null;
+            String responseSnippet = null;
+            String errorMessage = null;
+            boolean success = false;
 
-            if (responseCode >= 200 && responseCode < 300) {
-                success = true;
-                log.info("Webhook delivery {} to {} succeeded (HTTP {}, {}ms) on attempt {}",
-                        deliveryId, endpoint.getUrl(), responseCode, latency, currentAttemptNumber);
-            } else {
-                errorMessage = "HTTP " + responseCode;
-                log.warn("Webhook delivery {} to {} returned non-2xx status: HTTP {} ({}ms)",
-                        deliveryId, endpoint.getUrl(), responseCode, latency);
+            try {
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(endpoint.getUrl()))
+                        .header("Content-Type", "application/json")
+                        .header("User-Agent", "Webhook-Delivery-Service/1.0")
+                        .header("X-Webhook-Signature", signature)
+                        .header("X-Webhook-Timestamp", String.valueOf(timestampSeconds))
+                        .header("X-Correlation-Id", traceId)
+                        .header("X-Delivery-Id", delivery.getId().toString())
+                        .header("X-Attempt-Number", String.valueOf(currentAttemptNumber))
+                        .header("X-Tenant-Id", delivery.getTenantId())
+                        .timeout(Duration.ofSeconds(6))
+                        .POST(HttpRequest.BodyPublishers.ofString(payload))
+                        .build();
+
+                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+                long latency = System.currentTimeMillis() - startTime;
+                responseCode = response.statusCode();
+                responseSnippet = sanitizeSnippet(response.body());
+
+                if (responseCode >= 200 && responseCode < 300) {
+                    success = true;
+                    log.info("Webhook delivery {} to {} succeeded (HTTP {}, {}ms) on attempt {}",
+                            deliveryId, endpoint.getUrl(), responseCode, latency, currentAttemptNumber);
+                } else {
+                    errorMessage = "HTTP " + responseCode;
+                    log.warn("Webhook delivery {} to {} returned non-2xx status: HTTP {} ({}ms)",
+                            deliveryId, endpoint.getUrl(), responseCode, latency);
+                }
+            } catch (HttpTimeoutException te) {
+                long latency = System.currentTimeMillis() - startTime;
+                errorMessage = "Connection or read timed out after " + latency + "ms";
+                log.warn("Webhook delivery {} timed out after {}ms: {}", deliveryId, latency, te.getMessage());
+            } catch (Exception e) {
+                long latency = System.currentTimeMillis() - startTime;
+                errorMessage = e.getClass().getSimpleName() + ": " + e.getMessage();
+                log.warn("Webhook delivery {} failed with exception: {}", deliveryId, e.getMessage());
             }
-        } catch (HttpTimeoutException te) {
-            long latency = System.currentTimeMillis() - startTime;
-            errorMessage = "Connection or read timed out after " + latency + "ms";
-            log.warn("Webhook delivery {} timed out after {}ms: {}", deliveryId, latency, te.getMessage());
-        } catch (Exception e) {
-            long latency = System.currentTimeMillis() - startTime;
-            errorMessage = e.getClass().getSimpleName() + ": " + e.getMessage();
-            log.warn("Webhook delivery {} failed with exception: {}", deliveryId, e.getMessage());
-        }
 
-        long totalLatency = System.currentTimeMillis() - startTime;
+            long totalLatency = System.currentTimeMillis() - startTime;
 
-        // Record attempt in audit table
-        DeliveryAttempt attempt = new DeliveryAttempt(
-                delivery.getId(),
-                currentAttemptNumber,
-                responseCode,
-                totalLatency,
-                errorMessage
-        );
-        attemptRepository.save(attempt);
+            // Record attempt in audit table
+            DeliveryAttempt attempt = new DeliveryAttempt(
+                    delivery.getId(),
+                    currentAttemptNumber,
+                    responseCode,
+                    totalLatency,
+                    errorMessage
+            );
+            attemptRepository.save(attempt);
 
-        // Update delivery entity
-        delivery.setAttemptCount(currentAttemptNumber);
-        delivery.setLastResponseCode(responseCode);
-        delivery.setLastResponseSnippet(responseSnippet != null ? responseSnippet : errorMessage);
-        delivery.setLockedBy(null);
-        delivery.setLockedUntil(null);
-        delivery.setUpdatedAt(Instant.now());
+            // Update delivery entity
+            delivery.setAttemptCount(currentAttemptNumber);
+            delivery.setLastResponseCode(responseCode);
+            delivery.setLastResponseSnippet(responseSnippet != null ? responseSnippet : errorMessage);
+            delivery.setLockedBy(null);
+            delivery.setLockedUntil(null);
+            delivery.setUpdatedAt(Instant.now());
 
-        if (success) {
-            delivery.setStatus(DeliveryStatus.SUCCESS);
-            circuitBreakerService.recordSuccess(endpoint.getId());
-        } else {
-            circuitBreakerService.recordFailure(endpoint.getId());
-            if (retryPolicyService.hasExhaustedRetries(currentAttemptNumber)) {
-                delivery.setStatus(DeliveryStatus.DEAD_LETTERED);
-                log.error("Webhook delivery {} DEAD_LETTERED after {} failed attempts.",
-                        deliveryId, currentAttemptNumber);
+            if (success) {
+                delivery.setStatus(DeliveryStatus.SUCCESS);
+                circuitBreakerService.recordSuccess(endpoint.getId());
             } else {
-                delivery.setStatus(DeliveryStatus.PENDING);
-                Instant nextAttempt = retryPolicyService.calculateNextAttemptTime(currentAttemptNumber, Instant.now());
-                delivery.setNextAttemptAt(nextAttempt);
-                log.info("Scheduled retry #{} for delivery {} at {}",
-                        currentAttemptNumber + 1, deliveryId, nextAttempt);
+                circuitBreakerService.recordFailure(endpoint.getId());
+                if (retryPolicyService.hasExhaustedRetries(currentAttemptNumber)) {
+                    delivery.setStatus(DeliveryStatus.DEAD_LETTERED);
+                    log.error("Webhook delivery {} DEAD_LETTERED after {} failed attempts.",
+                            deliveryId, currentAttemptNumber);
+                } else {
+                    delivery.setStatus(DeliveryStatus.PENDING);
+                    Instant nextAttempt = retryPolicyService.calculateNextAttemptTime(currentAttemptNumber, Instant.now());
+                    delivery.setNextAttemptAt(nextAttempt);
+                    log.info("Scheduled retry #{} for delivery {} at {}",
+                            currentAttemptNumber + 1, deliveryId, nextAttempt);
+                }
             }
-        }
 
-        deliveryRepository.save(delivery);
+            deliveryRepository.save(delivery);
+        } finally {
+            if (createdTraceId) {
+                MDC.remove("traceId");
+            }
+            MDC.remove("tenantId");
+        }
     }
 
     private String sanitizeSnippet(String body) {

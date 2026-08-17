@@ -87,8 +87,13 @@ public class DeliveryQueryService {
                 .orElseThrow(() -> new ResourceNotFoundException("Endpoint not found with ID: " + endpointId));
 
         // Filter directly at the database level
-        Page<Delivery> deliveryPage = deliveryRepository.findFilteredEndpointDeliveries(
-                tenantId, endpointId, status, fromTime, toTime, pageable);
+        Page<Delivery> deliveryPage;
+        if (status == null && fromTime == null && toTime == null) {
+            deliveryPage = deliveryRepository.findAllByTenantIdAndEndpointIdOrderByCreatedAtDesc(tenantId, endpointId, pageable);
+        } else {
+            deliveryPage = deliveryRepository.findFilteredEndpointDeliveries(
+                    tenantId, endpointId, status, fromTime, toTime, pageable);
+        }
 
         return deliveryPage.map(DeliveryResponse::from);
     }
