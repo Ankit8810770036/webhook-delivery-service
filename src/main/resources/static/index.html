@@ -736,6 +736,45 @@
         document.getElementById('evtId').value = 'evt_' + Math.random().toString(36).substring(2, 9);
     }
 
+    function getCustomTenants() {
+        try {
+            return JSON.parse(localStorage.getItem('customTenants') || '[]');
+        } catch(e) {
+            return [];
+        }
+    }
+
+    function saveCustomTenant(tenant) {
+        const list = getCustomTenants();
+        if (!list.includes(tenant)) {
+            list.push(tenant);
+            localStorage.setItem('customTenants', JSON.stringify(list));
+        }
+    }
+
+    function restoreTenants() {
+        const sel = document.getElementById('tenantSelect');
+        const customList = getCustomTenants();
+        customList.forEach(t => {
+            let opt = Array.from(sel.options).find(o => o.value === t);
+            if (!opt) {
+                opt = document.createElement('option');
+                opt.value = t;
+                opt.text = t + ' (Custom)';
+                sel.add(opt, sel.options.length - 1);
+            }
+        });
+
+        const active = localStorage.getItem('activeTenant');
+        if (active) {
+            currentTenant = active;
+            let opt = Array.from(sel.options).find(o => o.value === active);
+            if (opt) {
+                sel.value = active;
+            }
+        }
+    }
+
     function onTenantChanged() {
         const sel = document.getElementById('tenantSelect');
         const val = sel.value;
@@ -743,6 +782,7 @@
             const custom = prompt('Enter custom Tenant ID:', 'tenant-gamma');
             if (custom && custom.trim().length > 0) {
                 currentTenant = custom.trim();
+                saveCustomTenant(currentTenant);
                 
                 // Add custom option to dropdown if it doesn't exist
                 let opt = Array.from(sel.options).find(o => o.value === currentTenant);
@@ -760,6 +800,7 @@
         } else {
             currentTenant = val;
         }
+        localStorage.setItem('activeTenant', currentTenant);
         currentEndpointId = null; // Reset endpoint selection for the new tenant
         refreshAll();
     }
@@ -956,6 +997,7 @@
 
     // Init on load
     document.addEventListener('DOMContentLoaded', () => {
+        restoreTenants();
         generateRandomEventId();
         refreshAll();
     });
