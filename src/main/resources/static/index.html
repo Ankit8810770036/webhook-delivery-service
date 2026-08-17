@@ -933,7 +933,12 @@
         }
 
         async function createEndpoint() {
-            const url = document.getElementById('epUrl').value;
+            const urlInput = document.getElementById('epUrl');
+            let url = urlInput ? urlInput.value.trim() : '';
+            if (!url) {
+                url = window.location.origin + '/api/demo/sink';
+                urlInput.value = url;
+            }
             const events = document.getElementById('epEvents').value.split(',').map(s => s.trim()).filter(Boolean);
             const secret = document.getElementById('epSecret').value;
 
@@ -976,8 +981,12 @@
         }
 
         async function ingestEvent() {
-            const eventId = document.getElementById('evtId').value;
-            const type = document.getElementById('evtType').value;
+            let eventId = document.getElementById('evtId').value;
+            if (!eventId || eventId.trim() === '') {
+                generateRandomEventId();
+                eventId = document.getElementById('evtId').value;
+            }
+            const type = document.getElementById('evtType').value || 'order.created';
             const rawPayload = document.getElementById('evtPayload').value;
 
             let payload;
