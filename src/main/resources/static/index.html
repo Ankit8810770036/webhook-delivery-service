@@ -901,6 +901,8 @@
                 const tbody = document.getElementById('endpointsTableBody');
                 if (endpoints.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: var(--text-secondary); padding: 20px;">No endpoints registered for ' + currentTenant + '</td></tr>';
+                    currentEndpointId = null;
+                    fetchDeliveries();
                     return;
                 }
 
@@ -920,8 +922,10 @@
                 </tr>
             `).join('');
 
-                if (endpoints.length > 0 && !currentEndpointId) {
-                    currentEndpointId = endpoints[0].id;
+                if (endpoints.length > 0) {
+                    if (!currentEndpointId || !endpoints.some(ep => ep.id === currentEndpointId)) {
+                        currentEndpointId = endpoints[0].id;
+                    }
                 }
             } catch (e) {
                 showToast('Error loading endpoints: ' + e.message);
@@ -995,10 +999,13 @@
         }
 
         async function fetchDeliveries() {
-            if (!currentEndpointId) return;
+            const tbody = document.getElementById('deliveriesTableBody');
+            if (!currentEndpointId) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-secondary); padding: 20px;">No deliveries recorded for ' + currentTenant + '.</td></tr>';
+                return;
+            }
             try {
                 const data = await apiCall(`/api/v1/endpoints/${currentEndpointId}/deliveries?page=0&size=20`);
-                const tbody = document.getElementById('deliveriesTableBody');
                 const items = data.content || [];
 
                 if (items.length === 0) {
