@@ -355,30 +355,25 @@
         /* Equalized Card Heights & Scrollable Tables for Desktop */
         @media (min-width: 869px) {
             .card-equal-1 {
-                min-height: 320px;
-                height: 320px;
+                min-height: 410px;
+                height: 410px;
                 display: flex;
                 flex-direction: column;
                 box-sizing: border-box;
                 overflow: hidden;
             }
             .card-equal-2 {
-                min-height: 335px;
-                height: 335px;
+                min-height: 410px;
+                height: 410px;
                 display: flex;
                 flex-direction: column;
                 box-sizing: border-box;
                 overflow: hidden;
             }
-            .card-equal-1 .table-wrapper {
-                flex: 1;
-                max-height: 230px;
-                overflow-y: auto;
-                overflow-x: auto;
-            }
+            .card-equal-1 .table-wrapper,
             .card-equal-2 .table-wrapper {
                 flex: 1;
-                max-height: 245px;
+                max-height: 320px;
                 overflow-y: auto;
                 overflow-x: auto;
             }
@@ -612,7 +607,7 @@
         <!-- Left Column: Forms -->
         <div>
             <!-- Register Endpoint Card -->
-            <div class="card card-equal-1">
+            <div class="card">
                 <div class="card-header">
                     <div class="card-title">📡 Register Endpoint</div>
                 </div>
@@ -641,11 +636,11 @@
                     <label>Secret (leave empty to auto-generate)</label>
                     <input type="text" id="epSecret" placeholder="Auto-generated 32-byte hex">
                 </div>
-                <button onclick="createEndpoint()" class="btn btn-primary" style="width: 100%; margin-top: 4px;">Register Endpoint</button>
+                <button onclick="createEndpoint()" class="btn btn-primary" style="width: 100%; margin-top: 6px;">Register Endpoint</button>
             </div>
 
             <!-- Ingest Event Card -->
-            <div class="card card-equal-2">
+            <div class="card">
                 <div class="card-header">
                     <div class="card-title">🚀 Ingest Producer Event</div>
                 </div>
