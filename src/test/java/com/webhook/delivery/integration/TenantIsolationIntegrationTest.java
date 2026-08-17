@@ -41,7 +41,7 @@ class TenantIsolationIntegrationTest extends BaseIntegrationTest {
         String tenantB = "tenant-iso-b";
 
         CreateEndpointRequest reqA = new CreateEndpointRequest(
-                "http://localhost:8080/api/demo/sink",
+                "http://localhost:8090/api/demo/sink",
                 "secret_for_a_only_1234567890",
                 List.of("invoice.paid")
         );
@@ -73,7 +73,7 @@ class TenantIsolationIntegrationTest extends BaseIntegrationTest {
         String tenantB = "tenant-log-b";
 
         CreateEndpointRequest epReq = new CreateEndpointRequest(
-                "http://localhost:8080/api/demo/sink", null, List.of("*"));
+                "http://localhost:8090/api/demo/sink", null, List.of("*"));
         EndpointResponse epA = endpointService.createEndpoint(tenantA, epReq);
 
         ObjectNode payload = objectMapper.createObjectNode().put("amount", 500);
@@ -103,7 +103,7 @@ class TenantIsolationIntegrationTest extends BaseIntegrationTest {
         String tenantB = "tenant-redrive-b";
 
         CreateEndpointRequest epReq = new CreateEndpointRequest(
-                "http://localhost:8080/api/demo/sink", null, List.of("*"));
+                "http://localhost:8090/api/demo/sink", null, List.of("*"));
         endpointService.createEndpoint(tenantA, epReq);
 
         ObjectNode payload = objectMapper.createObjectNode().put("amount", 200);

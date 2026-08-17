@@ -3,7 +3,7 @@
 
 set -e
 
-BASE_URL="http://localhost:8080"
+BASE_URL="http://localhost:8090"
 TENANT_A="tenant-alpha"
 TENANT_B="tenant-beta"
 
@@ -21,7 +21,7 @@ echo -e "\n2. Registering Webhook Endpoint for Tenant Alpha..."
 EP_RES=$(curl -s -X POST "$BASE_URL/api/v1/endpoints" \
   -H "X-Tenant-Id: $TENANT_A" \
   -H "Content-Type: application/json" \
-  -d '{"url":"http://localhost:8080/api/demo/sink","eventTypes":["invoice.paid"]}')
+  -d '{"url":"http://localhost:8090/api/demo/sink","eventTypes":["invoice.paid"]}')
 echo "$EP_RES"
 EP_ID=$(echo "$EP_RES" | grep -o '"id":"[^"]*' | cut -d'"' -f4)
 
@@ -62,5 +62,5 @@ curl -s -w "\nHTTP Status: %{http_code}\n" -X GET "$BASE_URL/api/v1/endpoints/$E
   -H "X-Tenant-Id: $TENANT_B"
 
 echo -e "\n========================================================"
-echo "🎉 DEMO COMPLETE! Dashboard: http://localhost:8080"
+echo "🎉 DEMO COMPLETE! Dashboard: http://localhost:8090"
 echo -e "========================================================\n"

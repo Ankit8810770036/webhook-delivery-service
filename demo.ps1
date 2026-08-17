@@ -5,7 +5,7 @@ Write-Host "`n========================================================" -Foregro
 Write-Host "⚡ RELIABLE WEBHOOK DELIVERY SERVICE - 5-MINUTE LIVE DEMO" -ForegroundColor Cyan
 Write-Host "========================================================`n" -ForegroundColor Cyan
 
-$baseUrl = "http://localhost:8080"
+$baseUrl = "http://localhost:8090"
 $tenantA = "tenant-alpha"
 $tenantB = "tenant-beta"
 
@@ -118,7 +118,7 @@ foreach ($fd in $flakyDeliveries) {
 
 Write-Host "`n========================================================" -ForegroundColor Cyan
 Write-Host "🎉 DEMO COMPLETED SUCCESSFULLY!" -ForegroundColor Green
-Write-Host "Open Dashboard: http://localhost:8080" -ForegroundColor White
-Write-Host "Swagger UI:     http://localhost:8080/swagger-ui.html" -ForegroundColor White
-Write-Host "Actuator:       http://localhost:8080/actuator/health" -ForegroundColor White
+Write-Host "Open Dashboard: http://localhost:8090" -ForegroundColor White
+Write-Host "Swagger UI:     http://localhost:8090/swagger-ui.html" -ForegroundColor White
+Write-Host "Actuator:       http://localhost:8090/actuator/health" -ForegroundColor White
 Write-Host "========================================================`n" -ForegroundColor Cyan

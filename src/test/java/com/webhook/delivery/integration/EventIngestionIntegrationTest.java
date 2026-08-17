@@ -45,9 +45,9 @@ class EventIngestionIntegrationTest extends BaseIntegrationTest {
 
         // Register 2 matching endpoints
         endpointService.createEndpoint(tenantId, new CreateEndpointRequest(
-                "http://localhost:8080/api/demo/sink1", null, List.of("invoice.paid")));
+                "http://localhost:8090/api/demo/sink1", null, List.of("invoice.paid")));
         endpointService.createEndpoint(tenantId, new CreateEndpointRequest(
-                "http://localhost:8080/api/demo/sink2", null, List.of("*")));
+                "http://localhost:8090/api/demo/sink2", null, List.of("*")));
 
         ObjectNode payload = objectMapper.createObjectNode().put("invoiceNumber", "INV-1001").put("total", 250.0);
         IngestEventRequest request = new IngestEventRequest(externalEventId, "invoice.paid", payload);

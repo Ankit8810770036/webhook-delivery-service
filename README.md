@@ -18,13 +18,13 @@ Clone the repository and launch the full stack (PostgreSQL + App):
 docker compose up --build -d
 
 # 2. Check health status
-curl http://localhost:8080/actuator/health
+curl http://localhost:8090/actuator/health
 ```
 
 Once started:
-- **Interactive Web Dashboard**: [http://localhost:8080](http://localhost:8080)
-- **Interactive Swagger UI**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
-- **Actuator Health & Metrics**: [http://localhost:8080/actuator/health](http://localhost:8080/actuator/health)
+- **Interactive Web Dashboard**: [http://localhost:8090](http://localhost:8090)
+- **Interactive Swagger UI**: [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
+- **Actuator Health & Metrics**: [http://localhost:8090/actuator/health](http://localhost:8090/actuator/health)
 
 ### Running Locally with Maven
 ```bash

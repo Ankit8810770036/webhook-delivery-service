@@ -30,7 +30,7 @@ services:
       postgres:
         condition: service_healthy
     ports:
-      - "${PORT:-8080}:8080"
+      - "${PORT:-8090}:8090"
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
