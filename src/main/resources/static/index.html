@@ -880,7 +880,8 @@
         try {
             const res = await apiCall('/api/v1/events', 'POST', { eventId, type, payload });
             showToast(`Event ${res.eventId} ${res.status}!`);
-            setTimeout(() => { refreshAll(); }, 500);
+            setTimeout(() => { refreshAll(); }, 200);
+            setTimeout(() => { refreshAll(); }, 1500);
         } catch (e) {
             showToast('Ingestion failed: ' + e.message);
         }
