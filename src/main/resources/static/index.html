@@ -355,25 +355,30 @@
         /* Equalized Card Heights & Scrollable Tables for Desktop */
         @media (min-width: 869px) {
             .card-equal-1 {
-                min-height: 510px;
-                height: 510px;
+                min-height: 320px;
+                height: 320px;
                 display: flex;
                 flex-direction: column;
                 box-sizing: border-box;
                 overflow: hidden;
             }
             .card-equal-2 {
-                min-height: 510px;
-                height: 510px;
+                min-height: 335px;
+                height: 335px;
                 display: flex;
                 flex-direction: column;
                 box-sizing: border-box;
                 overflow: hidden;
             }
-            .card-equal-1 .table-wrapper,
+            .card-equal-1 .table-wrapper {
+                flex: 1;
+                max-height: 230px;
+                overflow-y: auto;
+                overflow-x: auto;
+            }
             .card-equal-2 .table-wrapper {
                 flex: 1;
-                max-height: 415px;
+                max-height: 245px;
                 overflow-y: auto;
                 overflow-x: auto;
             }
